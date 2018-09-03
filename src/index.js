@@ -39,11 +39,14 @@ export default declare((api, options) => {
 				} else {
 					ref = path.node.id;
 				}
-				const pureExpression = t.arrowFunctionExpression([],
-					t.blockStatement([
-						node,
-						t.returnStatement(t.cloneNode(ref)),
-					]));
+				const pureExpression = t.callExpression(
+					t.arrowFunctionExpression([],
+						t.blockStatement([
+							node,
+							t.returnStatement(t.cloneNode(ref)),
+						])
+					),
+					[]);
 
 				annotateAsPure(pureExpression);
 
