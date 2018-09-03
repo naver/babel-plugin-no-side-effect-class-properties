@@ -1,8 +1,8 @@
 {
-  "name": "@daybrush/babel-plugin-proposal-class-properties",
-  "version": "0.0.1",
+  "name": "@daybrush/babel-plugin-no-side-effect-class-properties",
+  "version": "0.0.3",
   "description": "This plugin transforms static class properties as well as properties declared with the property initializer syntax",
-  "repository": "https://github.com/daybrush/babel-plugin-proposal-class-properties",
+  "repository": "https://github.com/daybrush/babel-plugin-no-side-effect-class-properties",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -19,9 +19,11 @@
   },
   "author": "Daybrush",
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.0.0",
+    "@babel/helper-annotate-as-pure": "^7.0.0",
+    "@babel/helper-function-name": "^7.0.0",
+    "@babel/plugin-syntax-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0"
   }
 }

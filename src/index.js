@@ -1,21 +1,58 @@
 import { declare } from "@babel/helper-plugin-utils";
-import babelPlugin from "@babel/plugin-proposal-class-properties";
+import nameFunction from "@babel/helper-function-name";
+import syntaxClassProperties from "@babel/plugin-syntax-class-properties";
+import annotateAsPure from "@babel/helper-annotate-as-pure";
+import { types as t } from "@babel/core";
+
+const seen = new WeakSet();
 
 export default declare((api, options) => {
 	api.assertVersion(7);
 
-	const { pure } = options;
+	return {
+		inherits: syntaxClassProperties,
+		visitor: {
+			Class(path) {
+				const { node } = path;
 
-
-	if (pure) {
-		return {
-			visitor: {
-				ClassDeclaration(path) {
-					console.log(path.node.static, path.node.key.id.name);
+				if (seen.has(node)) {
+					return;
+				} else {
+					seen.add(node);
 				}
-			}
-		}
-	}
+				const body = path.get("body");
+				let isStatic = false;
+				let ref;
 
-	return babelPlugin(api, options);
+				for (const bodyPath of body.get("body")) {
+					if (bodyPath.isClassProperty()) {
+						isStatic = true;
+						break;
+					}
+				}
+				if (!isStatic) {
+					return;
+				}
+				if (path.isClassExpression() || !path.node.id) {
+					nameFunction(path);
+					ref = path.scope.generateUidIdentifier("class");
+				} else {
+					ref = path.node.id;
+				}
+				const pureExpression = t.arrowFunctionExpression([],
+					t.blockStatement([
+						node,
+						t.returnStatement(t.cloneNode(ref)),
+					]));
+
+				annotateAsPure(pureExpression);
+
+				const declaration = t.variableDeclaration("const", [
+					t.variableDeclarator(t.cloneNode(ref), pureExpression),
+				]);
+
+				path.replaceWith(declaration);
+			},
+		},
+	};
 });
