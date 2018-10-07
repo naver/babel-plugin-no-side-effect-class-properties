@@ -1,5 +1,5 @@
 {
-  "name": "@daybrush/babel-plugin-no-side-effect-class-properties",
+  "name": "babel-plugin-no-side-effect-class-properties",
   "version": "0.0.4",
   "description": "This plugin transforms static class properties as well as properties declared with the property initializer syntax",
   "repository": "https://github.com/daybrush/babel-plugin-no-side-effect-class-properties",
@@ -11,7 +11,12 @@
   "keywords": [
     "babel-plugin",
     "tree-shaking",
-    "static"
+    "static",
+    "babel",
+    "pure",
+    "tree shaking",
+    "uglify",
+    "class properties"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
