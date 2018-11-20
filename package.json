@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-no-side-effect-class-properties",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "This plugin transforms static class properties as well as properties declared with the property initializer syntax",
   "repository": "https://github.com/daybrush/babel-plugin-no-side-effect-class-properties",
   "license": "MIT",
