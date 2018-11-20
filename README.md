@@ -1,4 +1,4 @@
-# babel-plugin-no-side-effects-class-properties
+# babel-plugin-no-side-effect-class-properties
 
 > if use class properties and have no side effects, use this plugin.
 
@@ -7,7 +7,7 @@
 Using npm:
 
 ```sh
-npm install --save-dev babel-plugin-no-side-effects-class-properties
+npm install --save-dev babel-plugin-no-side-effect-class-properties
 ```
 
 .babelrc
@@ -15,7 +15,7 @@ npm install --save-dev babel-plugin-no-side-effects-class-properties
 ```json
 {
   "plugins": [
-    ["babel-plugin-no-side-effect-class-properties"],
+    ["no-side-effect-class-properties"],
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
   ]
 }

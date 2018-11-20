@@ -33,7 +33,9 @@ export default declare((api, options) => {
 				if (!isStatic) {
 					return;
 				}
-				if (path.isClassExpression() || !path.node.id) {
+				const isExpression = path.isClassExpression();
+
+				if (isExpression || !path.node.id) {
 					nameFunction(path);
 					ref = path.scope.generateUidIdentifier("class");
 				} else {
@@ -41,20 +43,17 @@ export default declare((api, options) => {
 				}
 				const pureExpression = t.callExpression(
 					t.arrowFunctionExpression([],
-						t.blockStatement([
-							node,
-							t.returnStatement(t.cloneNode(ref)),
-						])
+						isExpression ? node : t.blockStatement([node, t.returnStatement(t.cloneNode(ref))])
 					),
 					[]);
 
 				annotateAsPure(pureExpression);
 
-				const declaration = t.variableDeclaration("const", [
+				const classNode = isExpression ? pureExpression : t.variableDeclaration("const", [
 					t.variableDeclarator(t.cloneNode(ref), pureExpression),
 				]);
 
-				path.replaceWith(declaration);
+				path.replaceWith(classNode);
 			},
 		},
 	};
