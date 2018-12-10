@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-no-side-effect-class-properties",
-  "version": "0.0.8",
+  "version": "0.0.7",
   "description": "This plugin transforms static class properties so that side effects do not occur.",
   "repository": "https://github.com/naver/babel-plugin-no-side-effect-class-properties",
   "license": "MIT",
