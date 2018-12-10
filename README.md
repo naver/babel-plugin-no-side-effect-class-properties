@@ -4,7 +4,9 @@
 >
 > However, if you use the static class properties, you do not have to use that code. This is because side effects occur.
 >
-> if use class properties and have no side effects, use this plugin.
+> If use class properties and have no side effects, use this plugin.
+>
+> This plugin transforms static class properties so that side effects do not occur.
 
 * Before Transpile
 ```js
